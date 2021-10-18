@@ -14,6 +14,15 @@ struct Section {
 
 enum SettingsOptionType {
     case staticCell(model: SettingsOption)
+    case switchCell(model: SettingsSwitchOption)
+}
+
+struct SettingsSwitchOption {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let handler: (() -> Void)
+    var isOn: Bool
 }
 
 struct SettingsOption {
@@ -28,6 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+        table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
         return table
     }()
 
@@ -71,6 +81,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.configure(with: model)
             return cell
+        case .switchCell(let model):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SwitchTableViewCell.identifier, for: indexPath) as? SwitchTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
         }
 
     }
@@ -80,6 +96,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let type = models[indexPath.section].options[indexPath.row]
         switch type.self {
         case .staticCell(let model):
+            model.handler()
+        case .switchCell(let model):
             model.handler()
         }
     }
