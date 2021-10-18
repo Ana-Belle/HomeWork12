@@ -29,6 +29,7 @@ struct SettingsOption {
     let title: String
     let icon: UIImage?
     let iconBackgroundColor: UIColor
+    let titleStatus: String
     let handler: (() -> Void)
 }
 
