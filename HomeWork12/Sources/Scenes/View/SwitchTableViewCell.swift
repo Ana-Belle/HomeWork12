@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SwitchTableViewCell: UITableViewCell {
+/*class SwitchTableViewCell: UITableViewCell {
     static let identifier = "SwitchTableViewCell"
 
     private let iconContainer: UIView = {
@@ -80,5 +80,5 @@ class SwitchTableViewCell: UITableViewCell {
         iconContainer.backgroundColor = model.iconBackgroundColor
         mySwitch.isOn = model.isOn
     }
-}
+}*/
 

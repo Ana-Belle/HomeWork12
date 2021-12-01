@@ -31,11 +31,18 @@ class SettingTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let labelStatus: UILabel = { //
+    private let labelStatus: UILabel = {
         let labelStatus = UILabel()
         labelStatus.textColor = .systemGray
         labelStatus.numberOfLines = 1
         return labelStatus
+    }()
+
+    private let switchButton: UISwitch = {
+        let switchButton = UISwitch()
+        switchButton.onTintColor = .systemGreen
+        switchButton.sizeToFit()
+        return switchButton
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -65,6 +72,9 @@ class SettingTableViewCell: UITableViewCell {
 
         labelStatus.frame = CGRect(x: 225 + iconContainer.frame.size.width, y: 0, width: contentView.frame.size.width - 225 - iconContainer.frame.size.width - 10, height: contentView.frame.size.height)
         labelStatus.textAlignment = NSTextAlignment.right
+
+        switchButton.sizeToFit()
+        switchButton.frame = CGRect(x: contentView.frame.size.width - switchButton.frame.size.width - 20, y: (contentView.frame.size.height - switchButton.frame.size.height)/2, width: switchButton.frame.size.width, height: switchButton.frame.size.height)
     }
 
     override func prepareForReuse() {
@@ -73,13 +83,16 @@ class SettingTableViewCell: UITableViewCell {
         label.text = nil
         iconContainer.backgroundColor = nil
         labelStatus.text = nil
+        switchButton.isOn = false
+        switchButton.removeFromSuperview()
     }
 
-    public func configure(with model: SettingsOption) {
+    public func configure(with model: SettingOption) {
         label.text = model.title
         iconImageView.image = model.icon
         iconContainer.backgroundColor = model.iconBackgroundColor
         labelStatus.text = model.titleStatus
+        model.isSwitch ? (contentView.addSubview(switchButton)) : (accessoryType = .disclosureIndicator)
     }
 }
 
