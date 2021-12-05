@@ -52,7 +52,6 @@ class SettingTableViewCell: UITableViewCell {
         contentView.addSubview(iconImageView)
         contentView.addSubview(labelStatus)
         contentView.clipsToBounds = true
-        accessoryType = .disclosureIndicator
     }
 
     required init?(coder: NSCoder) {
@@ -84,6 +83,7 @@ class SettingTableViewCell: UITableViewCell {
         iconContainer.backgroundColor = nil
         labelStatus.text = nil
         switchButton.isOn = false
+        accessoryType = .none
         switchButton.removeFromSuperview()
     }
 
